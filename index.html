@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>iPhone 18 Duo — Concept OS</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/device.css">
+<link rel="stylesheet" href="css/ios.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/apps.css">
+<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="css/duo.css">
+<link rel="stylesheet" href="css/local-apps.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f5f5f7">
+</head>
+<body>
+<header class="experience-header"><span class="experience-brand">iPhone <b>Duo</b></span><span class="experience-caption">An interactive web experience</span><button id="help-button" aria-label="How to use this experience">?</button></header>
+<nav class="experience-controls" aria-label="Device controls">
+  <button data-device-action="home">Home</button>
+  <button data-device-action="fold" aria-pressed="false">Fold</button>
+  <button data-device-action="split">Split View</button>
+  <button data-device-action="lock">Lock</button>
+  <button data-device-action="controls">Control Center</button>
+</nav>
+
+<div class="stage" id="stage">
+  <div class="device" id="device">
+    <div class="device-frame" id="device-frame">
+
+      <div class="hinge" id="hinge">
+        <div class="hinge-line"></div>
+      </div>
+
+      <!-- LEFT SCREEN -->
+      <div class="screen screen-left" id="screen-left" data-side="left">
+        <div class="screen-glass"></div>
+        <div class="screen-off" id="screen-off-left"></div>
+
+        <div class="status-bar" id="status-bar-left">
+          <div class="status-time" id="status-time-left">9:41</div>
+          <div class="status-icons">
+            <span class="focus-dot" id="focus-dot-left" hidden></span>
+            <svg class="icon-signal" viewBox="0 0 18 12" width="16" height="12"><rect x="0" y="7" width="3" height="5" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="3" width="3" height="9" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></svg>
+            <span class="icon-wifi" id="icon-wifi-left"><svg viewBox="0 0 18 14" width="16" height="13"><path d="M9 13.2a1.4 1.4 0 100-2.8 1.4 1.4 0 000 2.8zM4.7 8.6a6 6 0 018.6 0l-1.4 1.5a4 4 0 00-5.8 0zM1.6 5.3a10.4 10.4 0 0114.8 0L15 6.8a8.4 8.4 0 00-12 0z"/></svg></span>
+            <span class="battery-pct" id="battery-pct-left">100%</span>
+            <span class="icon-battery"><svg viewBox="0 0 25 12" width="24" height="12"><rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="currentColor" fill="none"/><rect id="battery-fill-left" x="2" y="2" width="18" height="8" rx="1.3" fill="currentColor"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span>
+          </div>
+        </div>
+
+        <div class="screen-content" id="content-left"></div>
+
+        <div class="home-indicator" id="home-indicator-left"></div>
+      </div>
+
+      <!-- RIGHT SCREEN -->
+      <div class="screen screen-right" id="screen-right" data-side="right">
+        <div class="screen-glass"></div>
+        <div class="screen-off" id="screen-off-right"></div>
+
+        <div class="status-bar" id="status-bar-right">
+          <div class="status-time" id="status-time-right">9:41</div>
+          <div class="status-icons">
+            <span class="focus-dot" id="focus-dot-right" hidden></span>
+            <svg class="icon-signal" viewBox="0 0 18 12" width="16" height="12"><rect x="0" y="7" width="3" height="5" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="3" width="3" height="9" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></svg>
+            <span class="icon-wifi" id="icon-wifi-right"><svg viewBox="0 0 18 14" width="16" height="13"><path d="M9 13.2a1.4 1.4 0 100-2.8 1.4 1.4 0 000 2.8zM4.7 8.6a6 6 0 018.6 0l-1.4 1.5a4 4 0 00-5.8 0zM1.6 5.3a10.4 10.4 0 0114.8 0L15 6.8a8.4 8.4 0 00-12 0z"/></svg></span>
+            <span class="battery-pct" id="battery-pct-right">100%</span>
+            <span class="icon-battery"><svg viewBox="0 0 25 12" width="24" height="12"><rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="currentColor" fill="none"/><rect id="battery-fill-right" x="2" y="2" width="18" height="8" rx="1.3" fill="currentColor"/><rect x="22.5" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span>
+          </div>
+        </div>
+
+        <div class="screen-content" id="content-right"></div>
+
+        <div class="home-indicator" id="home-indicator-right"></div>
+      </div>
+
+      <!-- Dynamic Island lives visually on the left screen (primary sensor housing) -->
+      <div class="dynamic-island" id="dynamic-island">
+        <div class="di-content" id="di-content"></div>
+      </div>
+
+      <!-- Global overlays: repositioned over left/right screen by JS via data-side -->
+      <div class="overlay control-center" id="control-center" data-side="left"></div>
+      <div class="overlay notification-center" id="notification-center" data-side="left"></div>
+      <div class="overlay app-switcher" id="app-switcher" data-side="left"></div>
+      <div class="overlay context-menu" id="context-menu" data-side="left"></div>
+      <div class="overlay keyboard-layer" id="keyboard-layer" data-side="left"></div>
+
+      <!-- HUDs -->
+      <div class="hud volume-hud" id="volume-hud"><div class="hud-icon">🔊</div><div class="hud-track"><div class="hud-fill" id="volume-hud-fill"></div></div></div>
+      <div class="hud brightness-hud" id="brightness-hud"><div class="hud-icon">☀️</div><div class="hud-track"><div class="hud-fill" id="brightness-hud-fill"></div></div></div>
+
+      <div class="flashlight-glow" id="flashlight-glow"></div>
+
+      <!-- hardware buttons -->
+      <div class="btn btn-power" id="btn-power" title="Power" aria-label="Power button"></div>
+      <div class="btn btn-action" id="btn-action" title="Action Button" aria-label="Action button"></div>
+      <div class="btn btn-vol-up" id="btn-vol-up" title="Volume Up" aria-label="Volume up"></div>
+      <div class="btn btn-vol-down" id="btn-vol-down" title="Volume Down" aria-label="Volume down"></div>
+    </div>
+  </div>
+</div>
+
+<!-- System modal layer: full device overlay for critical system modals -->
+<div class="modal-layer" id="modal-layer"></div>
+
+<!-- Boot splash -->
+<div class="boot-layer" id="boot-layer">
+  <div class="boot-logo">
+    <svg width="46" height="46" viewBox="0 0 24 24" fill="none"><path d="M16.7 1.5c.1 1.3-.4 2.5-1.2 3.4-.8 1-2.1 1.7-3.4 1.6-.1-1.3.4-2.6 1.2-3.5.9-1 2.3-1.6 3.4-1.5zM20.9 17c-.4 1-.7 1.7-1.2 2.4-.7 1.1-1.5 2.4-2.7 2.4-1 0-1.4-.7-2.6-.7-1.2 0-1.6.7-2.6.7-1.2 0-2-1.2-2.8-2.3-2-2.9-2.2-6.3-.9-8.7.9-1.7 2.5-2.7 4-2.7 1.2 0 2.1.8 2.6.8s1.6-1 2.9-.9c1.7.1 2.8.9 3.4 2-2 1.3-1.9 3.9-.1 6z" fill="#fff"/></svg>
+  </div>
+</div>
+
+<!-- Debug panel (outside device, developer tool) -->
+<button class="debug-toggle" id="debug-toggle" title="Debug Panel (Ctrl+Shift+D)" aria-label="Open debug panel">⚙</button>
+<div class="debug-panel" id="debug-panel" hidden>
+  <div class="debug-header">
+    <span>Debug Panel</span>
+    <button id="debug-close" aria-label="Close debug panel">✕</button>
+  </div>
+  <div class="debug-grid" id="debug-grid"></div>
+</div>
+
+<div class="stage-hint" id="stage-hint">Drag up on lock screen to unlock · Ctrl+Shift+D for debug tools</div>
+
+<script src="js/state.js"></script>
+<script src="js/asset-manifest.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/gestures.js"></script>
+<script src="js/keyboard.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/control-center.js"></script>
+<script src="js/multitasking.js"></script>
+<script src="js/device.js"></script>
+<script src="js/apps/home.js"></script>
+<script src="js/apps/settings.js"></script>
+<script src="js/apps/camera.js"></script>
+<script src="js/apps/messages.js"></script>
+<script src="js/apps/safari.js"></script>
+<script src="js/apps/photos.js"></script>
+<script src="js/apps/calculator.js"></script>
+<script src="js/apps/clock.js"></script>
+<script src="js/apps/notes.js"></script>
+<script src="js/apps/weather.js"></script>
+<script src="js/apps/music.js"></script>
+<script src="js/apps/files.js"></script>
+<script src="js/apps/placeholders.js"></script>
+<script src="js/apps/native.js"></script>
+<script src="js/local-data.js"></script>
+<script src="js/apps/productivity.js"></script>
+<script src="js/apps/media-local.js"></script>
+<script src="js/apps/communication-local.js"></script>
+<script src="js/apps/explore-local.js"></script>
+<script src="js/apps/system-local.js"></script>
+<script src="js/duo.js"></script>
+<script src="js/offline.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

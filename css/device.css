@@ -1,0 +1,273 @@
+/* ============================================================
+   device.css — physical device shell, hinge, hardware buttons
+   ============================================================ */
+
+.device {
+  --scale: 1;
+  transform: scale(var(--scale));
+  transform-origin: center center;
+}
+
+.device-frame {
+  --brightness: 0.9;
+  --wallpaper: linear-gradient(160deg,#0b1e3d 0%,#1e3a6e 35%,#5b3a8e 65%,#e0716b 100%);
+  position: relative;
+  width: 900px;
+  height: 560px;
+  display: flex;
+  align-items: stretch;
+  padding: 9px;
+  gap: 0;
+  border-radius: 42px;
+  background:
+    linear-gradient(155deg, #3a3c40 0%, #1c1d20 12%, #101113 50%, #232427 88%, #45474c 100%);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.08) inset,
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 40px 90px rgba(0,0,0,0.55),
+    0 10px 30px rgba(0,0,0,0.4);
+}
+
+.device-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 42px;
+  padding: 1px;
+  background: linear-gradient(155deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(255,255,255,0.15));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------------- Hinge (a thin seamless crease, not a bezel gap) ---------------- */
+.hinge {
+  position: relative;
+  width: 3px;
+  flex: 0 0 3px;
+  margin: 0;
+  background: linear-gradient(180deg, #0a0a0b, #000 50%, #0a0a0b);
+  z-index: 3;
+  box-shadow: 0 0 3px rgba(0,0,0,0.9);
+}
+.hinge-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.12) 15%, rgba(255,255,255,0.12) 85%, transparent);
+}
+
+/* ---------------- Screens ----------------
+   Rounded only on their outer corners so the two panels read as one
+   continuous folded display, meeting the hinge crease flush. */
+.screen {
+  position: relative;
+  flex: 1 1 0;
+  overflow: hidden;
+  background: #000;
+  filter: brightness(var(--brightness));
+}
+.screen-left { border-radius: 34px 0 0 34px; }
+.screen-right { border-radius: 0 34px 34px 0; }
+
+.screen-glass {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.015) 18%, rgba(255,255,255,0) 34%);
+  mix-blend-mode: screen;
+}
+
+.screen-off {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.screen-content {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transition: padding-bottom 0.3s cubic-bezier(0.2,0.9,0.3,1);
+}
+.screen-content.kb-space { padding-bottom: 206px; }
+
+.home-indicator {
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  border-radius: 3px;
+  background: var(--system-text, #fff);
+  opacity: 0.28;
+  z-index: 60;
+}
+
+/* ---------------- Status bar ---------------- */
+.status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  z-index: 55;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: none;
+  letter-spacing: -0.01em;
+}
+.status-bar.charging .icon-battery svg rect#battery-fill-left,
+.status-bar.charging .icon-battery svg rect#battery-fill-right { fill: #34c759; }
+.status-icons { display: flex; align-items: center; gap: 5px; }
+.status-icons svg { display: block; color: #fff; fill: currentColor; }
+.battery-pct { font-size: 13px; font-variant-numeric: tabular-nums; margin-right: 1px; }
+.focus-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #5856d6;
+  margin-right: 2px;
+}
+
+/* ---------------- Dynamic Island ---------------- */
+.dynamic-island {
+  position: absolute;
+  top: 26px;
+  left: 15px;
+  width: calc(50% - 22px);
+  display: flex;
+  justify-content: center;
+  z-index: 90;
+  pointer-events: none;
+}
+.dynamic-island .di-content-wrap {}
+.dynamic-island::after {
+  content: "";
+  display: block;
+  width: 118px;
+  height: 34px;
+  border-radius: 20px;
+  background: #000;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+  transition: width 0.42s cubic-bezier(0.34,1.4,0.4,1), height 0.42s cubic-bezier(0.34,1.4,0.4,1);
+}
+.dynamic-island.expanded::after {
+  width: 320px;
+  height: 66px;
+  border-radius: 30px;
+}
+.dynamic-island #di-content {
+  position: absolute;
+  top: 26px;
+  width: 118px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  pointer-events: auto;
+  transition: width 0.42s cubic-bezier(0.34,1.4,0.4,1), height 0.42s cubic-bezier(0.34,1.4,0.4,1);
+}
+.dynamic-island.expanded #di-content {
+  width: 320px;
+  height: 66px;
+}
+
+/* ---------------- Hardware buttons ---------------- */
+.btn {
+  position: absolute;
+  background: linear-gradient(90deg, #3a3b3e, #232427);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset;
+  border-radius: 3px;
+  cursor: pointer;
+  z-index: 5;
+}
+.btn:active { filter: brightness(0.85); }
+.btn-power {
+  right: -3px;
+  top: 150px;
+  width: 3px;
+  height: 78px;
+}
+.btn-action {
+  left: -3px;
+  top: 120px;
+  width: 3px;
+  height: 46px;
+  background: linear-gradient(90deg, #2a2b2e, #ff9500 200%);
+}
+.btn-vol-up {
+  left: -3px;
+  top: 190px;
+  width: 3px;
+  height: 46px;
+}
+.btn-vol-down {
+  left: -3px;
+  top: 246px;
+  width: 3px;
+  height: 46px;
+}
+
+/* ---------------- HUDs ---------------- */
+.hud {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) scale(0.9);
+  z-index: 500;
+  background: rgba(30,30,32,0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 22px 18px;
+  width: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.hud.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+.hud-icon { font-size: 18px; }
+.hud-track {
+  width: 5px;
+  height: 130px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.hud-fill { width: 100%; background: #fff; border-radius: 4px; transition: height 0.2s ease; }
+.volume-hud { left: 27%; }
+.brightness-hud { left: 73%; }
+
+/* ---------------- Flashlight glow ---------------- */
+.flashlight-glow {
+  position: absolute;
+  inset: -60px;
+  border-radius: 60px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0) 70%);
+  transition: opacity 0.3s ease;
+}
+.flashlight-glow.on { opacity: 0.55; }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 980px) {
+  .stage-hint { display: none; }
+}

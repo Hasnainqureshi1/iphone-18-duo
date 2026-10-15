@@ -1,0 +1,1 @@
+{"name":"iPhone Duo Experience","short_name":"Duo","description":"A local interactive iPhone Duo interface experience.","id":"./","start_url":"./","scope":"./","display":"standalone","background_color":"#f5f5f7","theme_color":"#f5f5f7","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}

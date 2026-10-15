@@ -1,0 +1,47 @@
+/* ============================================================
+   animations.css — reusable motion for system + app interactions
+   ============================================================ */
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideUpIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.nc-card { animation: slideUpIn 0.25s cubic-bezier(0.2,0.9,0.3,1); }
+.switcher-card { animation: scaleIn 0.22s cubic-bezier(0.2,0.9,0.3,1); }
+.msg-bubble { animation: slideUpIn 0.2s cubic-bezier(0.2,0.9,0.3,1); }
+.photo-cell, .note-row, .message-row, .settings-row, .files-row { animation: fadeIn 0.25s ease; }
+
+/* Camera shutter + flash */
+.camera-shutter span {
+  display: block; width: 100%; height: 100%; border-radius: 50%;
+  background: #fff;
+  transition: transform 0.12s ease;
+}
+.camera-shutter.pressed span { transform: scale(0.78); }
+.camera-flash-overlay {
+  position: absolute; inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.camera-flash-overlay.flash { animation: cameraFlash 0.22s ease-out; }
+@keyframes cameraFlash { 0% { opacity: 0; } 30% { opacity: 0.9; } 100% { opacity: 0; } }
+
+/* Safari reload */
+.safari-content.reloading { animation: safariReload 0.4s ease; }
+@keyframes safariReload { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+
+/* Rotation transition (orientation change) */
+.device-frame { transition: width 0.4s ease, height 0.4s ease; }
+
+/* Nav header title transition */
+.settings-detail-title, .thread-header, .concept-title { animation: slideUpIn 0.22s ease; }
+
+/* Generic press feedback */
+.app-icon-glyph, .cc-tile, .switcher-card, .widget, .kb-key, .calc-btn, .camera-shutter, .debug-btn {
+  will-change: transform;
+}
+
+/* Low battery attention pulse on battery icon */
+@keyframes lowBatteryPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }

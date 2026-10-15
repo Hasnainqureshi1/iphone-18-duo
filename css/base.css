@@ -1,0 +1,183 @@
+/* ============================================================
+   base.css — resets, design tokens, typography, debug panel
+   ============================================================ */
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #050608;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+input { font-family: inherit; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+
+:root {
+  --system-bg: #f2f2f7;
+  --system-surface: rgba(255,255,255,0.72);
+  --system-surface-solid: #ffffff;
+  --system-text: #0b0b0d;
+  --system-secondary-text: rgba(60,60,67,0.6);
+  --system-border: rgba(60,60,67,0.18);
+  --system-blur: saturate(180%) blur(24px);
+  --accent: #0a84ff;
+  --danger: #ff3b30;
+  --success: #34c759;
+  --radius-lg: 34px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+  --text-scale: 1;
+}
+
+:root[data-theme="dark"], :root:not([data-theme="light"]) {
+  --system-bg: #000000;
+  --system-surface: rgba(28,28,30,0.78);
+  --system-surface-solid: #1c1c1e;
+  --system-text: #f5f5f7;
+  --system-secondary-text: rgba(235,235,245,0.6);
+  --system-border: rgba(255,255,255,0.12);
+  --system-blur: saturate(180%) blur(24px);
+}
+:root[data-theme="light"] {
+  --system-bg: #f2f2f7;
+  --system-surface: rgba(255,255,255,0.72);
+  --system-surface-solid: #ffffff;
+  --system-text: #0b0b0d;
+  --system-secondary-text: rgba(60,60,67,0.6);
+  --system-border: rgba(60,60,67,0.18);
+}
+
+:root[data-text-size="0"] { --text-scale: 0.88; }
+:root[data-text-size="1"] { --text-scale: 0.94; }
+:root[data-text-size="2"] { --text-scale: 1; }
+:root[data-text-size="3"] { --text-scale: 1.08; }
+:root[data-text-size="4"] { --text-scale: 1.18; }
+
+/* ---------------- Stage (presentation background) ---------------- */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(70,90,140,0.18), transparent 55%),
+    radial-gradient(ellipse at 75% 80%, rgba(120,70,140,0.14), transparent 55%),
+    #08090c;
+  padding: 16px;
+}
+
+.stage-hint {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  transition: opacity 0.6s ease;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* ---------------- Boot splash ---------------- */
+.boot-layer {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.7s ease;
+}
+.boot-layer.fade { opacity: 0; pointer-events: none; }
+.boot-logo {
+  animation: bootPulse 1.6s ease-in-out infinite;
+}
+@keyframes bootPulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* ---------------- Debug panel (outside device) ---------------- */
+.debug-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 16px;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.debug-toggle:hover { background: rgba(255,255,255,0.16); }
+
+.debug-panel {
+  position: fixed;
+  top: 64px;
+  right: 16px;
+  width: 260px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: rgba(20,20,24,0.92);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  z-index: 20000;
+  color: #eee;
+  font-size: 12px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.debug-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.debug-header button {
+  color: #aaa;
+  font-size: 14px;
+}
+.debug-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 10px;
+}
+.debug-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #eee;
+  padding: 8px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.3;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+.debug-btn:hover { background: rgba(255,255,255,0.14); }
+.debug-btn:active { transform: scale(0.97); }
